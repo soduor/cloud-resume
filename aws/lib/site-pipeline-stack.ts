@@ -38,11 +38,17 @@ export class SitePipelineStack extends Stack {
        const buildProject = new codebuild.PipelineProject(this, 'BuildProject', {
             projectName: 'so-cloud-resume-build',
             buildSpec: codebuild.BuildSpec.fromObject({
+                version: '0.2',
                 phases: {
+                    install: {
+                        'runtime-versions': {
+                            nodejs: 14
+                        }
+                    },
                     build: {
                         commands: ['aws s3 sync web-app s3://so-cloud-resume --delete']
                     }
-                },
+                }
             }),
         });
 
