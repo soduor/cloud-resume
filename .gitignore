@@ -3,6 +3,7 @@
 *.d.ts
 node_modules
 .DS_Store
+.idea
 
 # CDK asset staging directory
 aws/.cdk.staging
