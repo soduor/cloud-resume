@@ -40,24 +40,28 @@ export class SitePipelineStack extends Stack {
             buildSpec: codebuild.BuildSpec.fromObject({
                 version: '0.2',
                 phases: {
-                    install: {
-                        'runtime-versions': {
-                            nodejs: 14
-                        }
-                    },
                     build: {
                         commands: ['aws s3 sync web-app s3://so-cloud-resume --delete']
                     }
                 }
             }),
         });
-
+       
         buildProject.addToRolePolicy(
             new iam.PolicyStatement({
                 sid: 'AllowS3ListBucket',
                 effect: iam.Effect.ALLOW,
-                actions: ['s3:ListBucket', 's3:PutObject', 's3:GetObject'],
+                actions: ['s3:ListBucket'],
                 resources: [`arn:aws:s3:::${cloudResumeBucket}`]
+            })
+        );
+
+        buildProject.addToRolePolicy(
+            new iam.PolicyStatement({
+                sid: 'AllowS3PutGetObject',
+                effect: iam.Effect.ALLOW,
+                actions: ['s3:PutObject', 's3:GetObject'],
+                resources: [`arn:aws:s3:::${cloudResumeBucket}/*`]
             })
         );
 
