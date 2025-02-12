@@ -30,7 +30,7 @@ export class CdkPipelineStack extends Stack {
       pipelineName: "so-cloud-resume-cdk-pipeline",
       synth: new pipelines.CodeBuildStep("Synth", {
         input: source,
-        commands: ["ls -al", "cd aws, ls -al, yarn install --frozen-lockfile", "yarn build", "yarn cdk synth"]
+        commands: ["ls -al", "cd aws", "ls -al", "yarn install --frozen-lockfile", "yarn build", "yarn cdk synth"]
       })
     });
 
