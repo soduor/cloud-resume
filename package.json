@@ -1,0 +1,11 @@
+{
+  "name": "cloud-resume",
+  "version": "1.0.0",
+  "description": "My cloud resume web-page",
+  "main": "index.js",
+  "author": "soduor",
+  "license": "MIT",
+  "dependencies": {
+    "prettier": "^3.5.0"
+  }
+}
