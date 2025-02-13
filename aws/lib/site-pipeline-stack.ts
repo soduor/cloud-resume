@@ -26,6 +26,7 @@ export class SitePipelineStack extends Stack {
                 branch: 'develop',
                 output: sourceArtifact,
                 connectionArn: connectionARN,
+                triggerOnPush: true
             })]
         };
 
@@ -38,7 +39,7 @@ export class SitePipelineStack extends Stack {
        const buildProject = new codebuild.PipelineProject(this, 'BuildProject', {
             projectName: 'so-cloud-resume-build',
             buildSpec: codebuild.BuildSpec.fromObject({
-                version: '0.2',
+                version: 0.2,
                 phases: {
                     build: {
                         commands: ['aws s3 sync web-app s3://so-cloud-resume --delete']
@@ -46,7 +47,7 @@ export class SitePipelineStack extends Stack {
                 }
             }),
         });
-       
+
         buildProject.addToRolePolicy(
             new iam.PolicyStatement({
                 sid: 'AllowS3ListBucket',
