@@ -13,17 +13,21 @@ export class CdkPipelineStack extends Stack {
 
     const connectionARN = ssm.StringParameter.valueForStringParameter(this, 'GITHUB_CONNECTION')
 
-    const connection = new codestarconnections.CfnConnection(this, "Connection", {
+    /*const connection = new codestarconnections.CfnConnection(this, "Connection", {
       connectionName: "GitHubConnection",
       providerType: "GitHub"
-    });
+    });*/
 
     //CdkPipelineStack.connectionARN = cdk.Fn.join("", ["arn:aws:codestar-connections:::", connection.ref, "/*"]);
 
-    const source = pipelines.CodePipelineSource.connection("soduor/cloud-resume", "develop", {
+    //test this
+
+    const source = pipelines.CodePipelineSource.connection(
+        "soduor/cloud-resume",
+        "develop", {
       //connectionArn: CdkPipelineStack.connectionARN,
       connectionArn: connectionARN,
-      triggerOnPush: true
+      triggerOnPush: true,
     });
 
     const pipeline = new pipelines.CodePipeline(this, "so-cloud-resume-cdk-pipeline", {
