@@ -11,7 +11,6 @@ export class SiteStack extends Stack {
    const cloudResumeBucket = new s3.Bucket(this, 'so-cloud-resume', {
         bucketName: 'so-cloud-resume',
         websiteIndexDocument: 'index.html',
-        websiteErrorDocument: 'error.html',
     });
 
    new cloudfront.Distribution(this, 'so-cloud-resume-dev-distribution', {
