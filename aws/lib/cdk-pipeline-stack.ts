@@ -11,7 +11,7 @@ export class CdkPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const connectionARN = ssm.StringParameter.valueForStringParameter(this, 'GITHUB_CONNECTION')
+    const connectionARN = ssm.StringParameter.valueForStringParameter(this, 'test')
 
     /*const connection = new codestarconnections.CfnConnection(this, "Connection", {
       connectionName: "GitHubConnection",
