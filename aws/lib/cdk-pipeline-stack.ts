@@ -20,7 +20,7 @@ export class CdkPipelineStack extends Stack {
 
     //CdkPipelineStack.connectionARN = cdk.Fn.join("", ["arn:aws:codestar-connections:::", connection.ref, "/*"]);
 
-    //test this
+    //this comment to try trigger pipeline
 
     const source = pipelines.CodePipelineSource.connection(
         "soduor/cloud-resume",
