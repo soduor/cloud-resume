@@ -5,13 +5,10 @@ import * as codepipeline from 'aws-cdk-lib/aws-codepipeline';
 import * as codebuild from 'aws-cdk-lib/aws-codebuild';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as actions from 'aws-cdk-lib/aws-codepipeline-actions';
-import {CdkPipelineStack} from './cdk-pipeline-stack';
-
 export class SitePipelineStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
 
-        //const connectionARN = CdkPipelineStack.connectionARN;
         const connectionARN = ssm.StringParameter.valueForStringParameter(this, 'GITHUB_CONNECTION')
         const cloudResumeBucket = 'so-cloud-resume';
         const sourceArtifact = new codepipeline.Artifact();

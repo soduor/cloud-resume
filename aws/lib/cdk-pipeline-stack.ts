@@ -3,31 +3,18 @@ import { Construct } from "constructs";
 import * as codestarconnections from "aws-cdk-lib/aws-codestarconnections";
 import * as pipelines from "aws-cdk-lib/pipelines";
 import * as cdk from "aws-cdk-lib";
-import * as ssm from 'aws-cdk-lib/aws-ssm';
+import * as ssm from "aws-cdk-lib/aws-ssm";
 import { SitePipelineStage } from "./pipeline-stage";
 
 export class CdkPipelineStack extends Stack {
-  //static connectionARN: string;
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const connectionARN = ssm.StringParameter.valueForStringParameter(this, 'test')
+    const connectionARN = ssm.StringParameter.valueForStringParameter(this, "test");
 
-    /*const connection = new codestarconnections.CfnConnection(this, "Connection", {
-      connectionName: "GitHubConnection",
-      providerType: "GitHub"
-    });*/
-
-    //CdkPipelineStack.connectionARN = cdk.Fn.join("", ["arn:aws:codestar-connections:::", connection.ref, "/*"]);
-
-    //this comment to try trigger pipeline
-
-    const source = pipelines.CodePipelineSource.connection(
-        "soduor/cloud-resume",
-        "develop", {
-      //connectionArn: CdkPipelineStack.connectionARN,
+    const source = pipelines.CodePipelineSource.connection("soduor/cloud-resume", "develop", {
       connectionArn: connectionARN,
-      triggerOnPush: true,
+      triggerOnPush: true
     });
 
     const pipeline = new pipelines.CodePipeline(this, "so-cloud-resume-cdk-pipeline", {
@@ -35,7 +22,7 @@ export class CdkPipelineStack extends Stack {
       synth: new pipelines.CodeBuildStep("Synth", {
         input: source,
         commands: ["cd aws", "yarn install --frozen-lockfile", "yarn build", "yarn cdk synth"],
-        primaryOutputDirectory: 'aws/cdk.out'
+        primaryOutputDirectory: "aws/cdk.out"
       })
     });
 
